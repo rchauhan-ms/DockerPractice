@@ -15,7 +15,7 @@ RUN apk -U upgrade --update && \
 RUN mkdir -p /opt
 
 # Add user and group
-# RUN addgroup -S ${DOCKER_USER} && adduser -S ${DOCKER_USER} -G ${DOCKER_USER}
+RUN addgroup -S ${DOCKER_USER} && adduser -S ${DOCKER_USER} -G ${DOCKER_USER}
 
 # install tomcat
 RUN curl -jkSL -o /tmp/apache-tomcat.tar.gz http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
@@ -30,8 +30,9 @@ RUN apk del curl && \
 
 EXPOSE 8080
 
+RUN chmod +x ${CATALINA_HOME}/bin/catalina.sh
 # set user
-# USER ${DOCKER_USER}
+USER ${DOCKER_USER}
 
 ENTRYPOINT [ "/opt/tomcat/bin/catalina.sh", "run" ]
 
