@@ -2,10 +2,11 @@
 FROM openjdk:8-jdk-alpine
 
 ARG DOCKER_USER=rchauhan
+ARG DOCKER_USER=rchauhan
 # Environment variables
 ENV TOMCAT_MAJOR=8 \
     TOMCAT_VERSION=8.5.100 \
-    CATALINA_HOME=/opt/tomcat
+    CATALINA_HOME="/opt/tomcat/"
 
 # init
 RUN apk -U upgrade --update && \
@@ -29,8 +30,9 @@ RUN apk del curl && \
     rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE 8080
-
+RUN chown -R ${DOCKER_USER}:${DOCKER_USER} ${CATALINA_HOME}
 RUN chmod +x ${CATALINA_HOME}/bin/catalina.sh
+ENV PATH=$PATH:/opt/tomcat/bin/
 # set user
 USER ${DOCKER_USER}
 
