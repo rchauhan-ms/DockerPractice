@@ -2,7 +2,7 @@
 FROM openjdk:8-jdk-alpine
 
 ARG DOCKER_USER=rchauhan
-ARG DOCKER_USER=rchauhan
+
 # Environment variables
 ENV TOMCAT_MAJOR=8 \
     TOMCAT_VERSION=8.5.100 \
